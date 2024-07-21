@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    /* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    padding: 0;
+}
+
+h2 {
+    color: #333;
+}
+
+form {
+    width: 100%;
+    max-width: 500px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.menu {
+    display: none;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.menu button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.menu button:hover {
+    background-color: #45a049;
+}
+
+#displayArea {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+}
+</style>
+<title>Interactive Webpage Example</title>
+<style>
+    /* Basic CSS for menu */
+    .menu {
+        display: none;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Contact Form</h2>
+
+<form id="myForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br><br>
+    
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br><br>
+    
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message" rows="4"></textarea><br><br>
+    
+    <input type="submit" value="Submit" id="submitBtn">
+</form>
+
+<div class="menu" id="menu">
+    <p>Interactive Menu Example</p>
+    <button onclick="toggleMenu()">Close Menu</button>
+</div>
+
+<h2>Dynamic Content Example</h2>
+<label for="userInput">Enter text:</label><br>
+<input type="text" id="userInput"><br>
+<button onclick="displayUserInput()">Display Input</button><br><br>
+<div id="displayArea"></div>
+
+<script>
+    // Function to validate a form
+function validateForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var message = document.getElementById("message").value;
+
+    if (name.trim() === "") {
+        alert("Name must be filled out");
+        return false;
+    }
+    if (email.trim() === "") {
+        alert("Email must be filled out");
+        return false;
+    }
+    // Additional email validation could be added here
+
+    if (message.trim() === "") {
+        alert("Message must be filled out");
+        return false;
+    }
+
+    return true;
+}
+
+// Function to handle form submission
+function submitForm(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    if (validateForm()) {
+        var formData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            message: document.getElementById("message").value
+        };
+
+        // Simulate form submission (replace with actual form submission logic)
+        console.log("Form submitted:", formData);
+        alert("Form submitted successfully!");
+
+        // Clear form fields after submission
+        document.getElementById("myForm").reset();
+    }
+}
+
+// Event listener for form submission
+document.getElementById("submitBtn").addEventListener("click", submitForm);
+
+// Function to toggle menu display
+function toggleMenu() {
+    var menu = document.getElementById("menu");
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
+
+// Function to display user input securely
+function displayUserInput() {
+    var userInput = document.getElementById("userInput").value;
+    var displayArea = document.getElementById("displayArea");
+
+    // Sanitize userInput to prevent XSS attacks
+    var sanitizedInput = userInput.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    displayArea.innerHTML = "<p>You entered:</p><p>" + sanitizedInput + "</p>";
+}
+
+</script>
+</body>
+</html>
